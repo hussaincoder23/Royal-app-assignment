@@ -25,7 +25,7 @@ class AuthorController extends Controller
             ]);
         }
 
-        // return view('authors.list',['authors'=>session('user')]);
+        return redirect()->back()->with('main_error',"Error occured");
 
     }
 
@@ -42,22 +42,8 @@ class AuthorController extends Controller
         if($api_response->successful()){
             return view('author.show',['author_details'=>$api_response]);
         }
-    }
+        return redirect()->back()->with('main_error',"Error occured");
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
     }
 
     /**
@@ -81,7 +67,7 @@ class AuthorController extends Controller
                 }
                 return 'some error';
             }
-            // return view('author.show',['author_details'=>$api_response]);
+            return redirect()->back()->with('main_error',"Error occured");
         }
 
     }
@@ -100,6 +86,7 @@ class AuthorController extends Controller
             return back()->with('main_success',"Book deleted successfully");
         }
         return back()->with('main_error',"Error occured , book is not deleted");
+        
 
     }
 }

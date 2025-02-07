@@ -20,6 +20,7 @@ class BookController extends Controller
         if($api_response->successful()){
             return view('book.create',['authors'=>$api_response['items']]);
         }
+        return redirect()->back()->with('main_error',"Error occured");
 
     }
 
