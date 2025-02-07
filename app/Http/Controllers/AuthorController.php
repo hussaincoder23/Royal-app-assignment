@@ -12,29 +12,7 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        
-// "total_results"
-// :
-// 10,
-// "total_pages"
-// :
-// 1,
-// "current_page"
-// :
-// 1,
-// "limit"
-// :
-// 12,
-// "offset"
-// :
-// 0,
-// "order_by"
-// :
-// "id",
-// "direction"
-// :
-// "ASC",
-// "items": [
+  
          $api_response = Http::withHeaders([
             'Authorization' => 'Bearer '.session('token'),
         ])->get('https://candidate-testing.com/api/v2/authors?orderBy=id&direction=ASC&limit=5&page='.request()->input('page',1));
@@ -51,21 +29,6 @@ class AuthorController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -106,17 +69,6 @@ class AuthorController extends Controller
             'Authorization' => 'Bearer '.session('token'),
         ])->get('https://candidate-testing.com/api/v2/authors/'.request('id'));
         
-    //    return $api_response =  Http::withHeaders([
-    //         'Authorization' => 'Bearer '.session('token'),
-    //     ])->post('https://candidate-testing.com/api/v2/authors',[
-    //             "first_name"=> "hussain 5",
-    //             "last_name"=> "webdev 5",
-    //             "birthday"=> "2025-02-07T03:38:43.585Z",
-    //             "biography"=> "test bio hussain 5",
-    //             "gender"=> "male",
-    //             "place_of_birth"=> "india"
-    //     ]);
-        
         if($api_response->successful()){
             if($api_response['books']){
                 return back()->with('main_error',"Can't delete author {$api_response['first_name']} because he already has books");
@@ -139,24 +91,10 @@ class AuthorController extends Controller
      */
     public function remove_book()
     {
-    //    return $api_response =  Http::withHeaders([
-    //         'Authorization' => 'Bearer '.session('token'),
-    //     ])->get('https://candidate-testing.com/api/v2/books/'.request('id'));
-
         $api_response =  Http::withHeaders([
             'Authorization' => 'Bearer '.session('token'),
         ])->delete('https://candidate-testing.com/api/v2/books/'.request('id'));
         
-    //    return $api_response =  Http::withHeaders([
-    //         'Authorization' => 'Bearer '.session('token'),
-    //     ])->post('https://candidate-testing.com/api/v2/authors',[
-    //             "first_name"=> "hussain 5",
-    //             "last_name"=> "webdev 5",
-    //             "birthday"=> "2025-02-07T03:38:43.585Z",
-    //             "biography"=> "test bio hussain 5",
-    //             "gender"=> "male",
-    //             "place_of_birth"=> "india"
-    //     ]);
         
         if($api_response->successful()){
             return back()->with('main_success',"Book deleted successfully");
