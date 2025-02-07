@@ -3,6 +3,7 @@
     <div>
 
     <h2>Authors list</h2>
+    @if($authors)
     <table border="1" style="margin-top: 20px;">
         <th>First name</th>
         <th>Last name</th>
@@ -26,9 +27,11 @@
         </tr>
         @empty
     </table>
-    <p>Sorry there is no authors</p>
+        @if($current_page <= 1)
+            <p>Sorry there is no authors</p>
+        @endif
     @endforelse
-
+    @endif
 
 
     <!-- Pagination Section -->
